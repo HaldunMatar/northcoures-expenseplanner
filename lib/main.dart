@@ -34,9 +34,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> transactionslist = [
-    Transaction(id: '1', title: 'apple', amount: 10, date: DateTime.now())
-  ];
+  final List<Transaction> transactionslist = [];
+
+  void deleteTransaction(String idtx) {
+    setState(() {
+      transactionslist.removeWhere((element) => element.id == idtx);
+    });
+  }
 
   void addNewTransaction(String titleinput, double amountinput) {
     print('  $titleinput    ------    $amountinput ');
@@ -91,8 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 elevation: 5,
               ),
             ),
-            NewTransaction(addNewTransaction),
-            ListTx(transactionslist)
+            ListTx(transactionslist, deleteTransaction)
           ],
         ),
       ),
@@ -104,11 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
             showModalBottomSheet(
                 context: context,
                 builder: (BuildContext context) {
-                  return Container(
-                    width: 100,
-                    height: 100,
-                    color: Colors.pink,
-                  );
+                  return NewTransaction(addNewTransaction);
                 });
           }),
     );

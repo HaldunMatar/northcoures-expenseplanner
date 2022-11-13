@@ -7,6 +7,7 @@ class NewTransaction extends StatelessWidget {
   String titleinput = '';
 
   double amountinput = 0;
+  DateTime? selectedDate;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +35,25 @@ class NewTransaction extends StatelessWidget {
                 onChanged: (value) {
                   amountinput = double.parse(value);
                 },
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text('Date : $selectedDate'),
+                  ),
+                  TextButton(
+                      onPressed: (() {
+                        showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(2010),
+                                lastDate: DateTime.now())
+                            .then((value) {
+                          selectedDate = value;
+                        });
+                      }),
+                      child: Text('Choose Date'))
+                ],
               ),
               TextButton(
                 child: Text('Add transaction'),

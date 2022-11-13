@@ -4,8 +4,9 @@ import 'package:intl/intl.dart';
 
 class ListTx extends StatelessWidget {
   List<Transaction> transactionslist = [];
+  final Function deteteTransaction;
 
-  ListTx(this.transactionslist);
+  ListTx(this.transactionslist, this.deteteTransaction);
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +51,9 @@ class ListTx extends StatelessWidget {
                   ],
                 ),
                 IconButton(
-                  onPressed: null,
+                  onPressed: () {
+                    deteteTransaction(tx.id);
+                  },
                   icon: Icon(
                     color: Colors.red,
                     Icons.delete,
