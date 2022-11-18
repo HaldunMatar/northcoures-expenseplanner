@@ -2,65 +2,44 @@ import 'package:expenseplanner/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class ListTx extends StatelessWidget {
+class ListTx extends StatefulWidget {
   List<Transaction> transactionslist = [];
   final Function deteteTransaction;
 
   ListTx(this.transactionslist, this.deteteTransaction);
 
   @override
+  State<ListTx> createState() => _ListTxState();
+}
+
+class _ListTxState extends State<ListTx> {
+  @override
   Widget build(BuildContext context) {
     return Container(
       height: 400,
       child: ListView(
-        children: transactionslist.map((tx) {
+        children: widget.transactionslist.map((tx) {
           return Card(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.symmetric(
-                    vertical: 10,
-                    horizontal: 15,
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.purple,
-                      width: 3,
-                    ),
-                  ),
-                  padding: EdgeInsets.all(10),
-                  child: Text(
-                    ' \$  ${tx.amount.toString()}',
+            child: ListTile(
+                leading: CircleAvatar(
+                  /// backgroundColor: _bgColor,
+                  radius: 30,
+                  child: Padding(
+                    padding: EdgeInsets.all(6),
+                    child: Text('\$${tx.amount}'),
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      tx.title,
-                      style: Theme.of(context).textTheme.bodyText2,
-                    ),
-                    Text(
-                      DateFormat('yyyy/mm/dd').format(tx.date),
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ],
+                title: Text(
+                  tx.title,
+                  style: Theme.of(context).textTheme.headline6,
                 ),
-                IconButton(
-                  onPressed: () {
-                    deteteTransaction(tx.id);
-                  },
-                  icon: Icon(
-                    color: Colors.red,
-                    Icons.delete,
-                  ),
-                )
-              ],
-            ),
+                subtitle: Text(
+                  DateFormat.yMMMd().format(tx.date),
+                ),
+                trailing: TextButton.icon(
+                    onPressed: () => {widget.deteteTransaction(tx.id)},
+                    icon: Icon(Icons.delete),
+                    label: Text("Delete"))),
           );
         }).toList(),
       ),

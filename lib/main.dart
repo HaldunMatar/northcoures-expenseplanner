@@ -17,7 +17,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple,
         textTheme: ThemeData.light().textTheme.copyWith(
-              bodyText2: TextStyle(fontSize: 25, color: Colors.red),
+              bodyText2:
+                  TextStyle(fontSize: 14, color: Color.fromARGB(255, 9, 2, 1)),
             ),
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(foregroundColor: Colors.orange),
@@ -42,14 +43,15 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void addNewTransaction(String titleinput, double amountinput) {
+  void addNewTransaction(
+      String titleinput, double amountinput, DateTime selectedDate) {
     print('  $titleinput    ------    $amountinput ');
     setState(() {
       var newtx = Transaction(
           id: DateTime.now().toString(),
           amount: amountinput,
           title: titleinput,
-          date: DateTime.now());
+          date: selectedDate);
       transactionslist.add(newtx);
     });
   }
@@ -107,7 +109,10 @@ class _MyHomePageState extends State<MyHomePage> {
             showModalBottomSheet(
                 context: context,
                 builder: (BuildContext context) {
-                  return NewTransaction(addNewTransaction);
+                  return Container(
+                    child: NewTransaction(addNewTransaction),
+                    height: 275,
+                  );
                 });
           }),
     );

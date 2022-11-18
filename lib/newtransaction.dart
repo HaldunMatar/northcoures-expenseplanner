@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-class NewTransaction extends StatelessWidget {
+class NewTransaction extends StatefulWidget {
   Function addTransaction;
 
   NewTransaction(this.addTransaction);
+
+  @override
+  State<NewTransaction> createState() => _NewTransactionState();
+}
+
+class _NewTransactionState extends State<NewTransaction> {
   String titleinput = '';
 
   double amountinput = 0;
+
   DateTime? selectedDate;
 
   @override
@@ -39,7 +47,8 @@ class NewTransaction extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    child: Text('Date : $selectedDate'),
+                    child: Text(
+                        'Date : ${selectedDate == null ? '' : DateFormat.yMMMd().format(selectedDate!)}'),
                   ),
                   TextButton(
                       onPressed: (() {
@@ -49,23 +58,20 @@ class NewTransaction extends StatelessWidget {
                                 firstDate: DateTime(2010),
                                 lastDate: DateTime.now())
                             .then((value) {
-                          selectedDate = value;
+                          setState(() {
+                            selectedDate = value;
+                          });
                         });
                       }),
                       child: Text('Choose Date'))
                 ],
               ),
-              TextButton(
+              ElevatedButton(
                 child: Text('Add transaction'),
                 onPressed: () {
-                  addTransaction(titleinput, amountinput);
+                  widget.addTransaction(titleinput, amountinput, selectedDate);
                 },
               ),
-              ElevatedButton(
-                  onPressed: () {
-                    print('I am in showbottomsheet ');
-                  },
-                  child: Text('test'))
             ]),
           ),
         ),
