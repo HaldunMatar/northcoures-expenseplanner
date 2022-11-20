@@ -1,6 +1,8 @@
 import '/listTx.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+import 'charts.dart';
 import 'newtransaction.dart';
 import 'transaction.dart';
 
@@ -87,13 +89,8 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Container(
-              width: double.infinity,
               child: Card(
-                color: Colors.blue,
-                child: Text(
-                  'CHART!',
-                  style: Theme.of(context).textTheme.headline3,
-                ),
+                child: Charts(),
                 elevation: 5,
               ),
             ),
