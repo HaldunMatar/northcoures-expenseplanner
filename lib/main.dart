@@ -90,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Container(
               child: Card(
-                child: Charts(),
+                child: Charts(transactionslist),
                 elevation: 5,
               ),
             ),
