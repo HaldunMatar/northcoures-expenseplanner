@@ -12,15 +12,28 @@ class Charts extends StatelessWidget {
   Charts(this.AllTrans);
 
   void TransformToWeekTransSum() {
+    var sumofweek = 0.0;
+
     for (var i = 0; i < 7; i++) {
       var weekday = DateTime.now().subtract(Duration(days: i));
 
       var daystring = DateFormat.E().format(weekday).substring(0, 2);
+      var sumday = 0.0;
 
-     
+      for (var j = 0; j < AllTrans.length; j++) {
+        if (AllTrans[j].date.day == weekday.day &&
+            AllTrans[j].date.year == weekday.year &&
+            AllTrans[j].date.month == weekday.month) {
+          sumday = sumday + AllTrans[j].amount;
+        }
 
-
-      weekTransSum.add({'day': daystring, 'amountDay': 10.6});
+        sumofweek = sumofweek + sumday;
+      }
+      weekTransSum.add({
+        'day': daystring,
+        'amountDay': sumday,
+        'weekpercent': sumday / sumofweek
+      });
     }
   }
 
@@ -33,7 +46,9 @@ class Charts extends StatelessWidget {
         children: [
           ...weekTransSum
               .map((daymap) => ChartBar(
-                  daymap['day'] as String, daymap['amountDay'] as double))
+                  daymap['day'] as String,
+                  daymap['amountDay'] as double,
+                  daymap['weekpercent'] as double))
               .toList()
         ],
       ),

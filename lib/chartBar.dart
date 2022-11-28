@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 class ChartBar extends StatelessWidget {
   String day = '';
   double amount = 0;
-  ChartBar(this.day, this.amount);
+  double weekpercent = 0.0;
+  ChartBar(this.day, this.amount, this.weekpercent);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContextcontext) {
     return Column(
       children: [
         Text(amount.toString()),
@@ -15,9 +16,13 @@ class ChartBar extends StatelessWidget {
           height: 100,
           child: Stack(children: [
             Container(
-              height: 50,
               width: 10,
-              color: Colors.purple,
+              height: 100,
+              color: Color.fromARGB(255, 218, 218, 218),
+            ),
+            FractionallySizedBox(
+              heightFactor: weekpercent,
+              child: Container(color: Colors.purple),
             )
           ]),
           decoration: BoxDecoration(

@@ -23,7 +23,7 @@ class _ListTxState extends State<ListTx> {
               fit: BoxFit.scaleDown,
             ))
         : Container(
-            height: MediaQuery.of(context).size.height * 0.20,
+            height: 400,
             child: ListView(
               children: widget.transactionslist.map((tx) {
                 return Card(
