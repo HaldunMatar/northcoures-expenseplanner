@@ -14,6 +14,10 @@ class Charts extends StatelessWidget {
   void TransformToWeekTransSum() {
     var sumofweek = 0.0;
 
+    for (var j = 0; j < AllTrans.length; j++) {
+      sumofweek = sumofweek + AllTrans[j].amount;
+    }
+
     for (var i = 0; i < 7; i++) {
       var weekday = DateTime.now().subtract(Duration(days: i));
 
@@ -26,14 +30,16 @@ class Charts extends StatelessWidget {
             AllTrans[j].date.month == weekday.month) {
           sumday = sumday + AllTrans[j].amount;
         }
-
-        sumofweek = sumofweek + sumday;
       }
+
+      print('sumofweek');
+      print(sumofweek);
       weekTransSum.add({
         'day': daystring,
         'amountDay': sumday,
-        'weekpercent': sumday / sumofweek
+        'weekpercent': sumofweek != 0 ? sumday / sumofweek : 0.0
       });
+      // sumofweek = 0;
     }
   }
 
